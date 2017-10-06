@@ -29,3 +29,16 @@ func TestCarCdr(t *testing.T) {
 		t.Errorf("cddar: want %+v, got %+v", want, got)
 	}
 }
+
+func TestNil(t *testing.T) {
+	in := NewCell("1", NewCell("2", nil))
+	if want, got := false, in.Nil(); want != got {
+		t.Errorf("expected not to be nil: %# v", in)
+	}
+	if want, got := false, in.Cdr().Nil(); want != got {
+		t.Errorf("expected not to be nil: %# v", in.Cdr())
+	}
+	if want, got := true, in.Cdr().Cdr().Nil(); want != got {
+		t.Errorf("expected to be nil: %# v", in.Cdr().Cdr())
+	}
+}
