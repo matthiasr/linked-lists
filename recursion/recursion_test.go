@@ -1,4 +1,4 @@
-package cons
+package main
 
 import (
 	"testing"
