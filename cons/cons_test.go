@@ -42,3 +42,29 @@ func TestNil(t *testing.T) {
 		t.Errorf("expected to be nil: %# v", in.Cdr().Cdr())
 	}
 }
+
+func TestMake(t *testing.T) {
+	if want, got := (&Cell{"x", &Cell{"x", &Cell{"x", nil}}}), Make(3, "x"); !reflect.DeepEqual(want, got) {
+		t.Errorf("want: %# v\ngot: %# v", p.Formatter(want), p.Formatter(got))
+	}
+}
+
+func TestLength(t *testing.T) {
+	cases := []struct {
+		l uint
+		c *Cell
+	}{
+		{0, nil},
+		{1, &Cell{"x", nil}},
+		{2, &Cell{"x", &Cell{"x", nil}}},
+		{1, NewCell("x", nil)},
+		{2, NewCell("x", NewCell("x", nil))},
+		{100, Make(100, "x")},
+	}
+
+	for _, c := range cases {
+		if want, got := c.l, c.c.Length(); want != got {
+			t.Errorf("unexpected length: want %d, got: %d for: %# v", want, got, p.Formatter(c.c))
+		}
+	}
+}
