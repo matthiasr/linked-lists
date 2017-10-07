@@ -1,6 +1,7 @@
 package cons
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -46,5 +47,27 @@ func TestMakeWithLoop(t *testing.T) {
 		if x != firstInLoop {
 			t.Errorf("expected to reach first element in loop again for case %# v, want: %# v, got: %# v", c, firstInLoop, x)
 		}
+	}
+}
+
+func BenchmarkMakeLoop(b *testing.B) {
+	cases := []uint{1, 10, 100, 1000, 1e4, 1e5, 1e6}
+	for _, c := range cases {
+		b.Run(fmt.Sprintf("MakeLoop%d", c), func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				MakeLoop(c, "x")
+			}
+		})
+	}
+}
+
+func BenchmarkMakeWithLoop(b *testing.B) {
+	cases := []uint{1, 10, 100, 1000, 1e4, 1e5, 1e6}
+	for _, c := range cases {
+		b.Run(fmt.Sprintf("MakeWithLoop%d", c), func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				MakeWithLoop(c, c, "x")
+			}
+		})
 	}
 }
