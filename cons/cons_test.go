@@ -1,6 +1,7 @@
 package cons
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 
@@ -40,5 +41,17 @@ func TestNil(t *testing.T) {
 	}
 	if want, got := true, in.Cdr().Cdr().Nil(); want != got {
 		t.Errorf("expected to be nil: %# v", in.Cdr().Cdr())
+	}
+}
+
+func BenchmarkLoopCdr(b *testing.B) {
+	cases := []uint{1, 10, 100, 1000, 1e4, 1e5, 1e6, 1e7}
+	for _, c := range cases {
+		l := MakeLoop(c, "x")
+		b.Run(fmt.Sprintf("LoopCdr%d", c), func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				l = l.Cdr()
+			}
+		})
 	}
 }
