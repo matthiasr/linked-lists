@@ -26,6 +26,14 @@ func TestDetectLoopSimple(t *testing.T) {
 		{"MakeWithLoop_100_100", true, MakeWithLoop(100, 100, "x")},
 		{"MakeWithLoop_1000_1000", true, MakeWithLoop(1000, 1000, "x")},
 		{"MakeWithLoop_10000_10000", true, MakeWithLoop(10000, 10000, "x")},
+		{"MakeWithLoop_1_10", true, MakeWithLoop(1, 10, "x")},
+		{"MakeWithLoop_1_100", true, MakeWithLoop(1, 100, "x")},
+		{"MakeWithLoop_1_1000", true, MakeWithLoop(1, 1000, "x")},
+		{"MakeWithLoop_1_10000", true, MakeWithLoop(1, 10000, "x")},
+		{"MakeWithLoop_10_1", true, MakeWithLoop(10, 1, "x")},
+		{"MakeWithLoop_100_1", true, MakeWithLoop(100, 1, "x")},
+		{"MakeWithLoop_1000_1", true, MakeWithLoop(1000, 1, "x")},
+		{"MakeWithLoop_10000_1", true, MakeWithLoop(10000, 1, "x")},
 	}
 
 	for _, c := range cases {
