@@ -52,3 +52,21 @@ func BenchmarkDetectLoopSimple(b *testing.B) {
 		})
 	}
 }
+
+func TestDetectLoop2(t *testing.T) {
+	for _, c := range cases {
+		if got := c.l.DetectLoop2(); got != c.want {
+			t.Errorf("unexpected result for test case %v, want: %v, got: %v", c.desc, c.want, got)
+		}
+	}
+}
+
+func BenchmarkDetectLoop2(b *testing.B) {
+	for _, c := range cases {
+		b.Run(c.desc, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				c.l.DetectLoop2()
+			}
+		})
+	}
+}
